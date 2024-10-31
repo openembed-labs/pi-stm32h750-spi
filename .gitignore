@@ -1,0 +1,5 @@
+build
+cross_build
+node_modules
+
+server_command.txt
