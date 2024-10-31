@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "spidev.h": "c",
-        "spi.h": "c"
+        "spi.h": "c",
+        "syslog.h": "c"
     }
 }
