@@ -1,20 +1,16 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
 #include <linux/spi/spidev.h>
+#include "common.h"
 #include "spi.h"
 #include "logger.h"
+#include "send_test_data.h"
 
-/**
- * @brief SPI initialization function
- *
- * @param spi_path
- * @param mode
- * @param speed
- * @return int
- */
+// SPI initialization function
 int spi_init(const char *spi_path, uint8_t mode, uint32_t speed)
 {
     int spi_fd = open(spi_path, O_RDWR);
@@ -38,21 +34,12 @@ int spi_init(const char *spi_path, uint8_t mode, uint32_t speed)
         return -1;
     }
 
-    log_info("SPI initialized successfully, Device: %s, Mode: %d, Speed: %d Hz", spi_path, mode, speed);
+    log_info("SPI initialized successfully, Device: %s, Mode: %d, Speed: %d Hz \n", spi_path, mode, speed);
     return spi_fd;
 }
 
-/**
- * @brief SPI data transfer function
- *
- * @param spi_fd
- * @param send_data
- * @param recv_data
- * @param len
- * @param speed
- * @return int
- */
-int spi_transfer_data(int spi_fd, uint8_t *send_data, uint8_t *recv_data, size_t len, uint32_t speed)
+// SPI data transfer function
+int spi_transfer_data(int spi_fd, unsigned char *send_data, unsigned char *recv_data, size_t len, uint32_t speed)
 {
     struct spi_ioc_transfer spi_transfer = {
         .tx_buf = (unsigned long)send_data,
@@ -68,7 +55,27 @@ int spi_transfer_data(int spi_fd, uint8_t *send_data, uint8_t *recv_data, size_t
         return -1;
     }
 
-    log_info("SPI data transfer successful");
+    return 0;
+}
+
+// Full duplex SPI data transfer function
+int spi_transfer_full_duplex(int spi_fd, unsigned char *send_data, unsigned char *recv_data, size_t len)
+{
+    unsigned char first_recv_data[SEND_DATA_SIZE] = {0};
+
+    if (spi_transfer_data(spi_fd, send_data, first_recv_data, len, SPI_SPEED) < 0)
+    {
+        return -1;
+    }
+
+    // 延迟500毫秒
+    usleep(500000);
+
+    if (spi_transfer_data(spi_fd, send_data, recv_data, len, SPI_SPEED) < 0)
+    {
+        return -1;
+    }
+
     return 0;
 }
 
@@ -83,8 +90,6 @@ void spi_close(int spi_fd)
 int spi_main()
 {
     int spi_fd;
-    uint8_t send_data[4] = {0x01, 0x02, 0x03, 0x04};
-    uint8_t recv_data[4] = {0};
 
     spi_fd = spi_init(SPI_PATH, SPI_MODE, SPI_SPEED);
     if (spi_fd < 0)
@@ -92,33 +97,9 @@ int spi_main()
         return -1;
     }
 
-    for (int i = 0; i < 5; i++)
-    {
-        // Update send data
-        for (int j = 0; j < 4; j++)
-        {
-            send_data[j] += i;
-        }
+    test_main(spi_fd);
 
-        log_info("Sending data, iteration %d:", i + 1);
-        print_hex(send_data, sizeof(send_data));
-
-        // Perform SPI transfer
-        if (spi_transfer_data(spi_fd, send_data, recv_data, sizeof(send_data), SPI_SPEED) < 0)
-        {
-            spi_close(spi_fd);
-            return -1;
-        }
-
-        // Print received data
-        log_info("Received data, iteration %d:", i + 1);
-        print_hex(recv_data, sizeof(recv_data));
-
-        // Delay 500 ms
-        usleep(500000);
-    }
-
-    // Close SPI
+    // 关闭SPI
     spi_close(spi_fd);
     return 0;
 }

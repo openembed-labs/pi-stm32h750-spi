@@ -2,6 +2,10 @@
     "files.associations": {
         "spidev.h": "c",
         "spi.h": "c",
-        "syslog.h": "c"
+        "syslog.h": "c",
+        "stdio.h": "c",
+        "daemonize.h": "c",
+        "common.h": "c",
+        "logger.h": "c"
     }
 }

@@ -40,7 +40,7 @@ void log_info(const char *fmt, ...)
     if (current_log_mode == LOG_MODE_CONSOLE)
     {
         // 使用绿色打印 info 日志
-        printf(INFO_COLOR "%s" RESET_COLOR "\n", buffer);
+        printf(INFO_COLOR "%s" RESET_COLOR, buffer);
     }
     else
     {
