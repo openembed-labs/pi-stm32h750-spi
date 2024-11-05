@@ -12,9 +12,38 @@
 
 // 设备名称映射
 const char *device_names[] = {
-    "Unknown", "RS485_1", "RS485_2", "RS485_3", "RS485_4", "RS232_1", "RS232_2", "CAN_1",
-    "CAN_2", "DI", "DO", "DO_1", "DO_2", "DO_3", "DO_4", "DO_5", "DO_6", "DO_7", "DO_8",
-    "DO_9", "DO_10", "DI_1", "DI_2", "DI_3", "DI_4", "DI_5", "DI_6", "DI_7", "DI_8", "DI_9", "DI_10"};
+    "Unknown", // 0x00
+    "RS485_1", // 0x01
+    "RS485_2", // 0x02
+    "RS485_3", // 0x03
+    "RS485_4", // 0x04
+    "RS232_1", // 0x05
+    "RS232_2", // 0x06
+    "CAN_1",   // 0x07
+    "CAN_2",   // 0x08
+    "DI",      // 0x09
+    "DO",      // 0x0A
+    "DO_1",    // 0x0B
+    "DO_2",    // 0x0C
+    "DO_3",    // 0x0D
+    "DO_4",    // 0x0E
+    "DO_5",    // 0x0F
+    "DO_6",    // 0x10
+    "DO_7",    // 0x11
+    "DO_8",    // 0x12
+    "DO_9",    // 0x13
+    "DO_10",   // 0x14
+    "DI_1",    // 0x15
+    "DI_2",    // 0x16
+    "DI_3",    // 0x17
+    "DI_4",    // 0x18
+    "DI_5",    // 0x19
+    "DI_6",    // 0x1A
+    "DI_7",    // 0x1B
+    "DI_8",    // 0x1C
+    "DI_9",    // 0x1D
+    "DI_10",   // 0x1E
+};
 
 // 校验接收到的数据中的设备ID是否为期望的设备ID
 int valid_device_id(const unsigned char *recv_data, int expected_sender_id)
