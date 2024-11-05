@@ -57,11 +57,15 @@ void log_error(const char *fmt, ...)
 
     char buffer[256];
     vsnprintf(buffer, sizeof(buffer), fmt, args);
-    snprintf(buffer + strlen(buffer), sizeof(buffer) - strlen(buffer) - 1, ": %s", strerror(errno));
+
+    const char *err_str = strerror(errno);
+    if (errno != 0)
+    {
+        snprintf(buffer + strlen(buffer), sizeof(buffer) - strlen(buffer) - 1, ": %s", err_str);
+    }
 
     if (current_log_mode == LOG_MODE_CONSOLE)
     {
-        // 使用红色打印 error 日志
         fprintf(stderr, ERROR_COLOR "ERROR: %s" RESET_COLOR "\n", buffer);
     }
     else
