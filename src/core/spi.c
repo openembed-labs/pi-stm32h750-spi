@@ -72,11 +72,12 @@ int spi_transfer_full_duplex(int spi_fd, uint8_t *send_data, uint8_t *recv_data,
     {
         return -1;
     }
-    // printf("\033[36mFirst_recv_data AAA:");
-    // print_hex(first_recv_data, SEND_DATA_SIZE);
+
+    printf("\033[36mFirst_recv_data%d:", 1111);
+    print_hex(first_recv_data, len);
 
     // 50ms
-    usleep(50000);
+    usleep(500000);
 
     // 发送全零数据并接收数据（只读有效数据）
     if (spi_transfer_data(spi_fd, zero_data, recv_data, len, SPI_SPEED) < 0)
@@ -85,7 +86,7 @@ int spi_transfer_full_duplex(int spi_fd, uint8_t *send_data, uint8_t *recv_data,
     }
 
     // 50ms
-    usleep(50000);
+    usleep(500000);
 
     return 0;
 }
@@ -94,7 +95,7 @@ int spi_transfer_full_duplex(int spi_fd, uint8_t *send_data, uint8_t *recv_data,
 void spi_close(int spi_fd)
 {
     close(spi_fd);
-    log_info("SPI device closed");
+    log_info("SPI device closed\n");
 }
 
 // Main function

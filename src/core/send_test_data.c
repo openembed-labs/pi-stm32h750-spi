@@ -118,8 +118,8 @@ void send_and_receive(int spi_fd, int expected_sender_id, uint8_t *data_to_send,
     printf("\033[36mSending  data, iteration %d:", iteration + 1);
     print_hex(data_to_send, data_len);
 
-    // 清空接收数据
-    memset(recv_data, 0, data_len);
+    // // 清空接收数据
+    // memset(recv_data, 0, data_len);
 
     // 执行 SPI 数据传输
     if (spi_transfer_full_duplex(spi_fd, data_to_send, recv_data, data_len) < 0)
@@ -159,6 +159,10 @@ int test_main(int spi_fd)
     uint8_t can_data_1_to_2[SEND_DATA_SIZE] = {DEVICE_CAN_1, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18};
     uint8_t can_data_2_to_1[SEND_DATA_SIZE] = {DEVICE_CAN_2, 0x18, 0x17, 0x16, 0x15, 0x14, 0x13, 0x12, 0x11};
 
+    // uint8_t di_do_data[SEND_DATA_SIZE] = {DEVICE_DO_1, 0x0A};
+
+    // send_and_receive(spi_fd, DEVICE_RS485_2, rs485_data_1_to_2, recv_data, sizeof(rs485_data_1_to_2), sizeof(recv_data), 1);
+
     for (int i = 0; i < 6; i++)
     {
         send_and_receive(spi_fd, DEVICE_RS485_2, rs485_data_1_to_2, recv_data, sizeof(rs485_data_1_to_2), sizeof(recv_data), i);
@@ -171,6 +175,8 @@ int test_main(int spi_fd)
 
         send_and_receive(spi_fd, DEVICE_CAN_2, can_data_1_to_2, recv_data, sizeof(can_data_1_to_2), sizeof(recv_data), i);
         send_and_receive(spi_fd, DEVICE_CAN_1, can_data_2_to_1, recv_data, sizeof(can_data_2_to_1), sizeof(recv_data), i);
+
+        // send_and_receive(spi_fd, DEVICE_DI_1, di_do_data, recv_data, sizeof(di_do_data), sizeof(recv_data), i);
     }
 
     return 0;
