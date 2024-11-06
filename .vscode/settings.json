@@ -6,6 +6,11 @@
         "stdio.h": "c",
         "daemonize.h": "c",
         "common.h": "c",
-        "logger.h": "c"
+        "logger.h": "c",
+        "ioctl.h": "c",
+        "fcntl.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c",
+        "unistd.h": "c"
     }
 }

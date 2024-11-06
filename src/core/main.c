@@ -3,7 +3,6 @@
 #include "spi.h"
 #include "daemonize.h"
 #include "logger.h"
-#include "gpio.h"
 
 void parse_arguments(int argc, char *argv[]);
 
@@ -21,9 +20,6 @@ void parse_arguments(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-
-    initialize_gpio18();
-
     spi_main();
 
     return 0;

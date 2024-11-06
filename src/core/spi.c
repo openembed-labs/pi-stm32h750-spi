@@ -39,7 +39,7 @@ int spi_init(const char *spi_path, uint8_t mode, uint32_t speed)
 }
 
 // SPI data transfer function
-int spi_transfer_data(int spi_fd, unsigned char *send_data, unsigned char *recv_data, size_t len, uint32_t speed)
+int spi_transfer_data(int spi_fd, uint8_t *send_data, uint8_t *recv_data, size_t len, uint32_t speed)
 {
     struct spi_ioc_transfer spi_transfer = {
         .tx_buf = (unsigned long)send_data,
@@ -59,10 +59,10 @@ int spi_transfer_data(int spi_fd, unsigned char *send_data, unsigned char *recv_
 }
 
 // Full duplex SPI data transfer function
-int spi_transfer_full_duplex(int spi_fd, unsigned char *send_data, unsigned char *recv_data, size_t len)
+int spi_transfer_full_duplex(int spi_fd, uint8_t *send_data, uint8_t *recv_data, size_t len)
 {
-    unsigned char first_recv_data[SEND_DATA_SIZE] = {0};
-    unsigned char zero_data[SEND_DATA_SIZE] = {0}; // 全零数据，用于只读操作
+    uint8_t first_recv_data[SEND_DATA_SIZE] = {0};
+    uint8_t zero_data[SEND_DATA_SIZE] = {0}; // 全零数据，用于只读操作
 
     // 清空接收缓冲区
     memset(recv_data, 0, len);
@@ -72,30 +72,19 @@ int spi_transfer_full_duplex(int spi_fd, unsigned char *send_data, unsigned char
     {
         return -1;
     }
-    printf("\033[36mFirst_recv_data AAA:");
-    print_hex(first_recv_data, SEND_DATA_SIZE);
+    // printf("\033[36mFirst_recv_data AAA:");
+    // print_hex(first_recv_data, SEND_DATA_SIZE);
 
-    // 延迟50毫秒，确保数据准备完毕
+    // 50ms
     usleep(50000);
 
-    // 第二次发送全零数据并接收数据（只读冗余数据）
-    if (spi_transfer_data(spi_fd, zero_data, first_recv_data, len, SPI_SPEED) < 0)
-    {
-        return -1;
-    }
-    printf("\033[36mSecond_recv_data BBB:");
-    print_hex(first_recv_data, SEND_DATA_SIZE);
-
-    // 延迟50毫秒，确保数据准备完毕
-    usleep(50000);
-
-    // 第三次发送全零数据并接收数据（只读有效数据）
+    // 发送全零数据并接收数据（只读有效数据）
     if (spi_transfer_data(spi_fd, zero_data, recv_data, len, SPI_SPEED) < 0)
     {
         return -1;
     }
 
-    // 延迟50毫秒，确保数据准备完毕
+    // 50ms
     usleep(50000);
 
     return 0;
