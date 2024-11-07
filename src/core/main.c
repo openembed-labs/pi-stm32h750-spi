@@ -31,7 +31,7 @@ void parse_arguments(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    // parse_arguments(argc, argv);
+    parse_arguments(argc, argv);
 
     if (spi_main() != 0)
     {

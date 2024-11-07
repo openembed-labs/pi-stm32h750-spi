@@ -1,9 +1,10 @@
-#include "logger.h"
 #include <stdarg.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
 #include <syslog.h>
+#include "logger.h"
 #include "daemonize.h"
 
 // ANSI 转义码
@@ -85,11 +86,38 @@ void print_hex(const unsigned char *buf, size_t length)
     printf("\n");
 }
 
-void print_binary(unsigned char byte)
+// void print_binary(unsigned char byte)
+// {
+//     for (int i = 7; i >= 0; i--)
+//     {
+//         printf("%d", (byte >> i) & 1);
+//     }
+//     printf("\n");
+// }
+
+void print_byte_binary(uint8_t byte)
 {
+
     for (int i = 7; i >= 0; i--)
-    {
-        printf("%d", (byte >> i) & 1);
+    { // 从高位到低位
+        printf("%d ", (byte >> i) & 1);
     }
-    printf("\n");
+
+    // for (int i = 7; i >= 0; i--)
+    // { // 从高位到低位
+    //     printf(" %d-%d ", i + 1, (byte >> i) & 1);
+    // }
+}
+
+void print_binary_arr(uint8_t *array, size_t size)
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        printf("AA[%zu] = ", i);
+        for (int j = 7; j >= 0; j--)
+        { // 从最高位到最低位打印二进制
+            printf("%d", (array[i] >> j) & 1);
+        }
+        printf("\n");
+    }
 }
