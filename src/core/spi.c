@@ -56,7 +56,8 @@ int spi_transfer_data(int spi_fd, uint8_t *send_data, uint8_t *recv_data, size_t
     }
 
     // 100ms
-    usleep(100000);
+    // usleep(100000);
+    usleep(50000);
 
     return 0;
 }
@@ -76,8 +77,8 @@ int spi_transfer_full_duplex(int spi_fd, uint8_t *send_data, uint8_t *recv_data,
         return -1;
     }
 
-    printf("\033[36mFirst_recv_data%d:", 1111);
-    print_hex(first_recv_data, len);
+    // printf("\033[36mFirst_recv_data%d:", 1111);
+    // print_hex(first_recv_data, len);
 
     // 发送全零数据并接收数据（只读有效数据）
     if (spi_transfer_data(spi_fd, zero_data, recv_data, len, SPI_SPEED) < 0)

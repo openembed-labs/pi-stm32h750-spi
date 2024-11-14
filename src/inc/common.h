@@ -1,8 +1,6 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#define SEND_DATA_SIZE 9
-
 #define DEVICE_RS485_1 0x01
 #define DEVICE_RS485_2 0x02
 #define DEVICE_RS485_3 0x03

@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define SEND_DATA_SIZE 9          // 发送数据大小，根据实际数据大小调整
+#define SEND_DATA_SIZE 255        // 发送数据大小，根据实际数据大小调整
 #define SPI_PATH "/dev/spidev1.2" // SPI 设备文件
 #define SPI_MODE SPI_MODE_0       // SPI模式，根据实际情况调整
 #define SPI_SPEED 500000          // SPI速度，根据实际情况调整
