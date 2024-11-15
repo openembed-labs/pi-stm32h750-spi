@@ -1,6 +1,6 @@
 {
     "name": "pi-stm32-spi",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "description": "pi stm32 spi comm.",
     "author": "Jeremy Zhou <sharebravery@gmail.com>",
     "scripts": {
