@@ -3,7 +3,6 @@
     "version": "0.0.0",
     "description": "pi stm32 spi comm.",
     "author": "Jeremy Zhou <sharebravery@gmail.com>",
-    "license": "MIT",
     "scripts": {
         "release": "release-it"
     },

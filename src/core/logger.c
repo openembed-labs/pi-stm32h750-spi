@@ -86,15 +86,6 @@ void print_hex(const unsigned char *buf, size_t length)
     printf("\n");
 }
 
-// void print_binary(unsigned char byte)
-// {
-//     for (int i = 7; i >= 0; i--)
-//     {
-//         printf("%d", (byte >> i) & 1);
-//     }
-//     printf("\n");
-// }
-
 void print_byte_binary(uint8_t byte)
 {
 
@@ -102,11 +93,6 @@ void print_byte_binary(uint8_t byte)
     { // 从高位到低位
         printf("%d ", (byte >> i) & 1);
     }
-
-    // for (int i = 7; i >= 0; i--)
-    // { // 从高位到低位
-    //     printf(" %d-%d ", i + 1, (byte >> i) & 1);
-    // }
 }
 
 void print_binary_arr(uint8_t *array, size_t size)
