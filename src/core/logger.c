@@ -7,7 +7,6 @@
 #include "logger.h"
 #include "daemonize.h"
 
-// ANSI 转义码
 #define RESET_COLOR "\033[0m"
 #define INFO_COLOR "\033[36m"  // 青色
 #define ERROR_COLOR "\033[31m" // 红色
@@ -40,7 +39,6 @@ void log_info(const char *fmt, ...)
 
     if (current_log_mode == LOG_MODE_CONSOLE)
     {
-        // 使用绿色打印 info 日志
         printf(INFO_COLOR "%s" RESET_COLOR, buffer);
     }
     else

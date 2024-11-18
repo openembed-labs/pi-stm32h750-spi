@@ -9,12 +9,11 @@ void parse_arguments(int argc, char *argv[]);
 void parse_arguments(int argc, char *argv[])
 {
     int run_as_daemon = 0;
-    for (int i = 1; i < argc; i++) // 从 1 开始，跳过程序名
+    for (int i = 1; i < argc; i++)
     {
         if (strcmp(argv[i], "--daemon") == 0)
         {
             run_as_daemon = 1;
-            // break; // 找到后就退出循环
         }
     }
 

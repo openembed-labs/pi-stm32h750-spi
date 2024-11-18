@@ -58,7 +58,7 @@ The `test_main` function organizes data transfer for different devices:
 ### Example Usage
 
 ```
-bashCopy code# Run the application in console mode
+# Run the application in console mode
 ./spi_program
 
 # Run the application in daemon mode

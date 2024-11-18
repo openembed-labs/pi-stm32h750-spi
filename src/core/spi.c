@@ -66,7 +66,6 @@ int spi_transfer_full_duplex(int spi_fd, uint8_t *send_data, uint8_t *recv_data,
     uint8_t first_recv_data[SEND_DATA_SIZE] = {0};
     uint8_t zero_data[SEND_DATA_SIZE] = {0}; // 全零数据，用于只读操作
 
-    // 清空接收缓冲区
     memset(recv_data, 0, len);
 
     // 第一次发送并接收数据（冗余数据）
@@ -104,7 +103,6 @@ int spi_main()
 
     test_main(spi_fd);
 
-    // 关闭SPI
     spi_close(spi_fd);
     return 0;
 }
